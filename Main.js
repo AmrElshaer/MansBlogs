@@ -11,7 +11,7 @@ const mongoose=require('mongoose');
 const bodyparser=require('body-parser');
 const methodoverride=require('method-override');
 const homeroute=require('./route/Home');
-
+const blogsroute=require('./route/Blogs');
 //authentication
 const passport=require('passport');
 const flash=require('express-flash');
@@ -32,4 +32,5 @@ app.use(methodoverride('_method'));
 app.use(bodyparser.urlencoded({limit:'10mb',extended:false}) );
 //router midleware
 app.use('/',homeroute);
+app.use('/Blogs',blogsroute);
 app.listen(process.env.PORT||3000);
