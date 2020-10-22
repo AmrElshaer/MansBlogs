@@ -1,0 +1,179 @@
+
+
+</style>
+	<div id="colorlib-page">
+		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul>
+                    <li class="colorlib-active"><a href="/Blogs">Home</a></li>
+                 
+                    <li><a href="/Blogs/Create">Write a post</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <%if(User==null){%>
+                        <li class="nav-item"><a href="/Account/Register" class="nav-link">Register</a></li>
+                        <li class="nav-item"><a href="/Account/Login" class="nav-link">Login</a></li>
+                        <%}else{%>
+                            <li><a href="#" class="nav-link"><span ><img class="img-fluid" style="max-width:50px;"  src="<%=User.ImagePath%>"></span><%=User.Name%></a></li>
+                          <li><form  method="POST" action="/Account/logout?_method=DELETE" id="logout"><a href="javascript:document.getElementById('logout').submit();" >Logout</a></form></li>
+                         
+                          
+                          
+                          <%}%>
+                </ul>
+            </nav>
+  
+            <div class="colorlib-footer">
+               
+                <p class="pfooter">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+                    made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </aside> <!-- END COLORLIB-ASIDE -->
+		<div id="colorlib-main">
+			<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+                    <div class="container-fluid px-0">
+                        <div class="row d-flex">
+                            <div class="col-md-6 d-flex">
+                                <div class="img d-flex align-self-stretch align-items-center js-fullheight" style="background-image:url(<%=Profile.ImagePath%>);">
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="text px-4 pt-5 pt-md-0 px-md-4 pr-md-5 ftco-animate">
+                               
+                            <h3 class="mb-4">I'm <span><%=Profile.Name%></span>&amp;Study in <%=Profile.University%></h2>
+                            <h4 class="mb-4"><span>@<%=Profile.Level%></span></h4>
+                            <p><%=Profile.AboutYou%></p>
+                        </div>
+                        </div>
+                    
+                    </div>
+                    
+                    </div>
+            
+           </section>
+           <%if(User.id==Profile.id){%>
+            <section class="container">
+            <form method="POST" action="/Account/<%=Profile.id%>?_method=PUT">
+                <div class="row">
+                       <div class="col-md-8">
+                        <div class="form-group ">
+                            <label for="Name">Name</label>
+                            <input type="text" name="Name" class="form-control" id="Name" aria-describedby="Name" placeholder="Enter Name"
+                                value="<%= Profile.Name%>">
+                            <%if(errormessage!=null){%>
+                            <%errormessage.filter(error=>error.param=='Name').forEach(error=>{%>
+
+                            <div class="alert alert-danger" role="alert">
+                                <%=error.msg%>
+                            </div>
+
+                            <%})%>
+                            <%}%>
+                            
+                        </div>
+                        <div class="form-group ">
+                            <label for="University">University</label>
+                            <select class="form-control"  name="University">
+                                <%Profile.Alluniversity.forEach(university=>{%>
+                                    <%if(university==Profile.University){%>
+                                    <option  value="<%=university%>" selected label="<%=university%>"></option>
+                                    <%}else{%>
+                                        <option  value="<%=university%>"  label="<%=university%>"></option>
+                                        <%}%>
+                                <%})%>
+                                
+                            </select>
+                           
+                            <%if(errormessage!=null){%>
+                            <%errormessage.filter(error=>error.param=='University').forEach(error=>{%>
+
+                            <div class="alert alert-danger" role="alert">
+                                <%=error.msg%>
+                            </div>
+
+                            <%})%>
+                            <%}%>
+                            
+                        </div>
+                        <div class="form-group ">
+                            <label for="Level">Level</label>
+                            <select name="Level" class="form-control">
+                                <%Profile.Levels.forEach(level=>{%>
+                                    <%if(level==Profile.Level){%>
+                                        <option  value="<%=level%>" selected label="<%=level%>"></option>
+                                        <%}else{%>
+                                            <option value="<%=level%>" label="<%=level%>"></option>
+                                            <%}%>
+                                    
+                                <%})%>
+                                
+                            </select>
+                           
+                            <%if(errormessage!=null){%>
+                            <%errormessage.filter(error=>error.param=='Level').forEach(error=>{%>
+
+                            <div class="alert alert-danger" role="alert">
+                                <%=error.msg%>
+                            </div>
+
+                            <%})%>
+                            <%}%>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="#">About You</label>
+                            <textarea name="AboutYou" class="form-control" id="message" cols="30" rows="4" placeholder="Description" value="<%= Profile.AboutYou %>"><%= Profile.AboutYou %></textarea>
+                        <%if(errormessage!=null){%>
+                        <%errormessage.filter(error=>error.param=='AboutYou').forEach(error=>{%>
+
+                        <div class="alert alert-danger" role="alert">
+                            <%=error.msg%>
+                        </div>
+
+                        <%})%>
+                        <%}%>
+                        </div>
+                        
+                       </div>
+                       <div class="col-md-4">
+                        <div class="form-group ">
+                    
+                            <label class="label" for="CoverImageName">Image</label>
+                            
+                                <input name="CoverImageName" value="<%= Profile.CoverImageName %>" class="filepond" type="file" class="form-control">
+                        <%if(errormessage!=null){%>
+                        <%errormessage.filter(error=>error.param=='CoverImageName').forEach(error=>{%>
+
+                        <div class="alert alert-danger" role="alert">
+                            <%=error.msg%>
+                        </div>
+
+                        <%})%>
+                        <%}%>
+                    </div>
+                       </div>
+                       
+                       
+                </div>
+                
+               
+                
+            
+           
+            
+                
+            
+            <button type="submit" class="btn btn-primary">Save</button>
+            
+        </form>
+           </section>
+            <%}%>
+           
+		</div><!-- END COLORLIB-MAIN -->
+	</div><!-- END COLORLIB-PAGE -->

@@ -14,6 +14,14 @@ $(document).ready(function(){
   placeholder: 'Compose an epic...',
   theme: 'snow'  // or 'bubble'
 });
+ var setContentInQuill= function (){
+  const value = $('#Content').val();
+const delta = quill.clipboard.convert(value);
+quill.setContents(delta, 'silent')
+}
+setContentInQuill();
+
+
 // Return the HTML content of the editor
 var data=  function getQuillHtml() { return quill.root.innerHTML; }
 // When the convert button is clicked, update output

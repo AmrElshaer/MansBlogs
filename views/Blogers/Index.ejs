@@ -21,9 +21,9 @@
               <ul>
                   <li class="colorlib-active"><a href="/Blogs">Home</a></li>
                   <%if(User!=null){%>
-                     <li><a href="/Profile/<%=User.id%>/MyBlogs">My Blog</a></li>
-                   
-                    <%}%>
+                    <li><a href="/Profile/<%=User.id%>/MyBlogs">My Blog</a></li>
+                  
+                   <%}%>
                   <%if(User==null){%>
                       <li class="nav-item"><a href="/Account/Register" class="nav-link">Register</a></li>
                       <li class="nav-item"><a href="/Account/Login" class="nav-link">Login</a></li>
@@ -49,33 +49,32 @@
               </p>
           </div>
       </aside> <!-- END COLORLIB-ASIDE -->
-      
       <div id="colorlib-main">
           <section class="ftco-section ftco-no-pt ftco-no-pb">
               <div class="container">
                   <div class="row d-flex">
                       <div class="col-xl-8 py-5 px-md-5">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <ul class="nav nav-pills justify-content-end">
-                                <li class="nav-item">
-                                  <a href="/Blogs/Create" class="nav-link active">Write a post</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colleage Blog</a>
-                                  <div class="dropdown-menu">
-                                    <%Universities.forEach(unversity=>{%>
-                                        <a class="dropdown-item" href="/Blogs?unversity=<%=unversity%>"><%=unversity%></a>
-                                       
-                                        <%})%>
-                                  </div>
-                                </li>
-                              </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="nav nav-pills justify-content-end">
+                              <li class="nav-item">
+                                <a href="/Blogs/Create" class="nav-link active">Write a post</a>
+                              </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colleage Blog</a>
+                                <div class="dropdown-menu">
+                                  <%Universities.forEach(unversity=>{%>
+                                      <a class="dropdown-item" href="/Blogs?unversity=<%=unversity%>"><%=unversity%></a>
+                                     
+                                      <%})%>
+                                </div>
+                              </li>
+                            </ul>
 
-                              </div>
-                            
-                          </div>
-                          <div class="row mt-4 pt-md-4">
+                            </div>
+                          
+                        </div>
+                        <div class="row mt-4 pt-md-4">
                               <%blogsdata.forEach(blog=>{%>
                                     <div class="col-md-12">
                                           <div class="blog-entry ftco-animate d-md-flex">
@@ -98,9 +97,21 @@
                                     </p>
                                     </div>
                                     <p class="postdata mb-4 "><%=blog.Content%></p>
-                                    
+                                    <div class="half order-md-last text-md-right">
+                                        <form class="meta" method="POST" id="DeletBlog" action="/Blogs/<%=blog.id%>?_method=DELETE">
+                                            <a href="/Blogs/<%=blog.id%>/Edit">Edit</a> 
+                                            <span></span>
+                                            <a href="javascript:document.getElementById('DeletBlog').submit();" 
+                                            data-toggle="tooltip" data-placement="left" title="Delete Blog">Delete
+                                          
+                                        </a>
+                                        </form>
+                                    </div>
                                                             <p><a href="/Blogs/<%=blog.id%>" class="btn-custom">Read More <span
-                                                                              class="ion-ios-arrow-forward"></span></a></p>
+                                                                              class="ion-ios-arrow-forward"></span></a>
+                                                                              
+                                                                            </p>
+                                                                          
                                                       </div>
                                                 </div>
                                           </div>
@@ -223,7 +234,4 @@
       </div><!-- END COLORLIB-MAIN -->
   </div><!-- END COLORLIB-PAGE -->
 
-      
-      <script src="/js/jquery.min.js"></script>
-      <script src="/js/LoadBlogs.js"></script>
      

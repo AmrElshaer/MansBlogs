@@ -1,25 +1,152 @@
-<div class="postdata">
-    <%=Blog.Content%>
-</div>
-<div id="disqus_thread" style="width: 500px;"></div>
+<style>
+  .postdata img {
+    /* max-width: 250px;  */
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
+  }
+
+  img.profile {
+    max-width: 66px;
+    max-height: 66px;
+  }
+  @media only screen and (min-device-width: 500px)   {
+    #disqus_thread {
+    width: 500px;
+  }
+    }
+
+
+/* On screens that are 600px or less, set the background color to olive */
+@media only screen and (min-device-width: 300px) and (max-device-width: 500px)  {
+    #disqus_thread {
+    width: 300px;
+  }
+    }
+
+</style>
+<div id="colorlib-page">
+  <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+  <aside id="colorlib-aside" role="complementary" class="js-fullheight">
+    <nav id="colorlib-main-menu" role="navigation">
+      <ul>
+        <li class="colorlib-active"><a href="/Blogs">Home</a></li>
+
+        <%if(User!=null){%>
+          <li><a href="/Profile/<%=User.id%>/MyBlogs">My Blog</a></li>
+        
+         <%}%>
+        <%if(User==null){%>
+        <li class="nav-item"><a href="/Account/Register" class="nav-link">Register</a></li>
+        <li class="nav-item"><a href="/Account/Login" class="nav-link">Login</a></li>
+        <%}else{%>
+        <li><a href="/Profile/<%=User.id%>" class="nav-link"><span><img class="img-fluid" style="max-width:50px;"
+                src="<%=User.ImagePath%>"></span><%=User.Name%></a></li>
+        <li>
+          <form method="POST" action="/Account/logout?_method=DELETE" id="logout"><a
+              href="javascript:document.getElementById('logout').submit();">Logout</a></form>
+        </li>
+
+
+
+        <%}%>
+          </ul>
+      </nav>
+
+      <div class="colorlib-footer">
+         
+          <p class="pfooter">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+              made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                  target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+      </div>
+  </aside> <!-- END COLORLIB-ASIDE -->
+  <div id="colorlib-main">
+      <section class="ftco-section ftco-no-pt ftco-no-pb">
+          <div class="container">
+              <div class="row d-flex">
+                  <div class="col-xl-10 py-5 px-md-5">
+                    <div class="row">
+                      <div class="col-md-12">
+                          <ul class="nav nav-pills justify-content-end">
+                        <li class="nav-item">
+                          <a href="/Blogs/Create" class="nav-link active">Write a post</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colleage Blog</a>
+                          <div class="dropdown-menu">
+                            <%Universities.forEach(unversity=>{%>
+                                <a class="dropdown-item" href="/Blogs?unversity=<%=unversity%>"><%=unversity%></a>
+                               
+                                <%})%>
+                          </div>
+                        </li>
+                      </ul>
+
+                      </div>
+                    
+                  </div>
+                  
+                  <div class="row mt-4 pt-md-4">
+                    
+                            <h1 style="display: block;"><%=Blog.Title%></h1>
+
+                            <p style="display: block;" class="postdata">
+                              <%=Blog.Content%>
+                            </p>
+                            <div class="tag-widget post-tag-container mb-5 mt-5">
+                              <div class="tagcloud">
+                                <%if(Blog.Universities!=null){%>
+                                <%Blog.Universities.forEach(university=>{%>
+                                <a href="/Blogs?unversity=<%=university%>" class="tag-cloud-link"><%=university%></a>
+                                <%})%>
+
+                                <%}%>
+                       </div>
+                   </div>
+ 
+           <div class="about-author d-flex p-4 bg-light">
+               <div class="bio mr-5">
+                   <img src="<%=Blog.Bloger.ImagePath%>" alt="Image placeholder" class="img-fluid mb-4 profile">
+               </div>
+              <div class="desc">
+                <h3><%=Blog.Bloger.Name%></h3>
+                <p><%=Blog.Bloger.AboutYou%></p>
+              </div>
+          </div>
+        <div id="disqus_thread">
+        </div>
+
+      </div>
+    </div>
+</section>
+</div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+
 
 <script>
 
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
-var disqus_config = function () {
-this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "<%=Blog.id%>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
+  var disqus_config = function () {
+    this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = "<%=Blog.id%>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
 
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://manscommunity.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
+  (function () { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://manscommunity.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                            
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+    Disqus.</a></noscript>

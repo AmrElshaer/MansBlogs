@@ -1,19 +1,74 @@
-
 <style>
-    #editor{
-        max-height: 200px;
-    overflow-y: auto;
-    font-size: 1rem;
+    #editor {
+        max-height: 350px;
+        overflow-y: auto;
+        font-size: 1rem;
     }
 </style>
-<form action="/Blogs/Create" method="POST" id="BlogContent">
-<div id="editor"><h1>Quill to HTML</h1>
-➡️  Modify this content to update HTML output 🔻.
+
+
+<div class="col-md-12">
+    
+        <div class="form-group">
+            
+            <input  placeholder="Title" id="Title" class="form-control" name="Title" value="<%=blog.Title%>">
+            <%if(errormessage!=null){%>
+                <%errormessage.filter(error=>error.param=='Title').forEach(error=>{%>
+                    <div class="alert alert-danger">
+                        <%=error.msg%>
+                      </div>
+                
+
+                <%})%>
+                <%}%>
+        </div>
+
+
+<div>
+<%blog.Alluniversity.forEach(university=>{%>
+<div  class="form-check">
+     <%if(blog.Universities!=null&&blog.Universities.includes(university)){%>
+    <input   type="checkbox" class="form-check-input" name="universities" value="<%=university%>" checked />
+    <%}else{%>
+    <input type="checkbox" class="form-check-input" name="universities" value="<%=university%>" />
+    <%}%>
+                        
+                    <label><%=university%></label>
 </div>
-<input  type="hidden" id="Content" name="Content">
-<button type="button" id="Blog">Save</button>
-</form>
+   
 
 
+<%})%>
+<%if(errormessage!=null){%>
+    <%errormessage.filter(error=>error.param=='universities').forEach(error=>{%>
+        <div class="alert alert-danger">
+            <%=error.msg%>
+          </div>
+    
+
+    <%})%>
+    <%}%>
+</div>
 
 
+<div class="form-group">
+<div id="editor" >
+
+</div>
+<%if(errormessage!=null){%>
+    <%errormessage.filter(error=>error.param=='Content').forEach(error=>{%>
+        <div class="alert alert-danger">
+            <%=error.msg%>
+          </div>
+    
+
+    <%})%>
+    <%}%>
+</div>
+
+
+<input type="hidden" id="Content" name="Content" value="<%=blog.Content%>">
+<input type="hidden" id="Bloger" name="Bloger" value="<%=User.id%>">
+
+
+</div>

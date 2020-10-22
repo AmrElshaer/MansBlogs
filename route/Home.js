@@ -3,7 +3,7 @@ const router = express.Router();
 //Home
 router.get('/', async (req, res) => {
 
-   res.render('Home/Index');
+   res.redirect('/Blogs');
 });
 
 module.exports = router;

@@ -1,7 +1,12 @@
 $(document).ready(function(){
-     var posts=$('.postdata');
+     
+     var stringToHTML = function (str) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(str, 'text/html');
+          return doc.body;
+    };
      $('.postdata').each(function(i,value){
-          $(value)[0].innerHTML=$(value)[0].innerText;
+          $(value)[0].innerHTML=stringToHTML(value.innerHTML).innerText;
          
      }); 
 });
